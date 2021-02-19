@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "fetch-yode": "^1.0.1",
+    "gui": "^0.9.5",
+    "node-fetch": "^2.6.1",
+    "sjcl": "^1.0.8"
+  },
+  "engines": {
+    "yode": "15.x"
+  }
+}
