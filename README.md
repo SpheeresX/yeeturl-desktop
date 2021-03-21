@@ -3,6 +3,7 @@ CLI app for yeeturl
 
 ## Usage
 `./yeeturl -s https://www.example.com/` - shortens a url
+
 `./yeeturl -g https://yeeturl.glitch.me/#a9f/hdf` - gets the original (long) url
 
 ## Running
