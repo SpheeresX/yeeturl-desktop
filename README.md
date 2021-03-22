@@ -2,11 +2,14 @@
 CLI app for yeeturl
 
 ## Usage
+
+[Download `yeeturl-desktop`](https://github.com/SpheeresX/yeeturl-desktop/releases)
+
 `./yeeturl -s https://www.example.com/` - shortens a url
 
 `./yeeturl -g https://yeeturl.glitch.me/#a9f/hdf` - gets the original (long) url
 
-## Running
+## Running (dev)
 
 1. Clone this repository
 2. `npm i`
