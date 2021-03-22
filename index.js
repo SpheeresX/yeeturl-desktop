@@ -20,7 +20,7 @@ const config = {
 }
 
 program
-	.version('0.0.1')
+	.version('0.0.2')
 	.option('-s, --shorten <url>', 'shorten a url')
 	.option('-g, --get <url>', 'get the long url from a shortened link')
 	.parse();
@@ -79,7 +79,6 @@ if (opts.shorten) {
 		const url = `${config.instanceURL}/api/getlink?id=${encodeURIComponent(code[0])}`;
 		const res = await fetch(url);
 		if (!res.ok) {
-			console.log(res.status);
 			switch (res.status) {
 				case 404:
 					return console.error(chalk.red("We couldn't find this link! It may have been removed."));
