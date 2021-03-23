@@ -13,10 +13,10 @@ function validateURL(value) {
 // if you're self-hosting yeeturl, change this configuration
 const config = {
 	// the instance yeeturl-desktop will use to shorten/get urls
-	instanceURL: 'https://yeeturl.glitch.me', // DON'T add a slash at the end of the url!
+	instanceURL: 'https://yeeturl.spheeresx.repl.co', // DON'T add a slash at the end of the url!
 	// yeeturl instances that the user can get original/long urls from
 	// this can be helpful if you're running mirror sites
-	supportedInstances: ['yeeturl.glitch.me']
+	supportedInstances: ['yeeturl.glitch.me', 'yeeturl.spheeresx.repl.co', 'yeeturl.github.io']
 }
 
 program
@@ -68,7 +68,7 @@ if (opts.shorten) {
 			return console.error(chalk.red('This URL is invalid.'));
 		// parse the url & make sure this instance is supported
 		var parsed = new URL(opts.get);
-		if (!config.supportedInstances.includes(parsed.hostname))
+		if (!config.supportedInstances.includes(parsed.hostname.toLowerCase()))
 			return console.error(chalk.red('This instance is unsupported.'));
 		// get the id & password from the url
 		// code[0] is the id of the short link,
