@@ -20,7 +20,7 @@ const config = {
 }
 
 program
-	.version('0.0.2')
+	.version('1.0.0')
 	.option('-s, --shorten <url>', 'shorten a url')
 	.option('-g, --get <url>', 'get the long url from a shortened link')
 	.parse();
