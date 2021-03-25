@@ -16,7 +16,8 @@ const config = {
 	instanceURL: 'https://yeeturl.spheeresx.repl.co', // DON'T add a slash at the end of the url!
 	// yeeturl instances that the user can get original/long urls from
 	// this can be helpful if you're running mirror sites
-	supportedInstances: ['yeeturl.glitch.me', 'yeeturl.spheeresx.repl.co', 'yeeturl.github.io']
+	supportedInstances: ['yeeturl.glitch.me', 'yeeturl.spheeresx.repl.co', 'yeeturl.github.io'],
+	sinstance: 'https://yeeturl.github.io' // remove this line if self-hosting
 }
 
 program
@@ -58,7 +59,7 @@ if (opts.shorten) {
 			}
 		}
 		var data = await res.json();
-		var shortenedURL = `${config.instanceURL}/#${data.link}/${password}`;
+		var shortenedURL = `${config.sinstance || config.instanceURL}/#${data.link}/${password}`;
 		console.log(chalk.green.bold('Done! ') + chalk.green(shortenedURL));
 	})();
 } else if (opts.get) {
