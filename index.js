@@ -37,7 +37,7 @@ if (opts.shorten) {
 		var password = crypto.randomBytes(5).toString('hex');
 		var encrypted = sjcl.encrypt(password, opts.shorten, { iter: 275000 });
 		// upload the encrypted url to the server
-		const res = await fetch(`${config.instanceURL}/api/shorten`, {
+		const res = await fetch(`${config.instanceURL}/api/v1/shorten`, {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -77,7 +77,7 @@ if (opts.shorten) {
 		const code = parsed.hash.replace("#", "").split("/");
 		// get the encrypted url from the server
 		console.log(chalk.magentaBright('Getting the encrypted url...'));
-		const url = `${config.instanceURL}/api/getlink?id=${encodeURIComponent(code[0])}`;
+		const url = `${config.instanceURL}/api/v1/getlink?id=${encodeURIComponent(code[0])}`;
 		const res = await fetch(url);
 		if (!res.ok) {
 			switch (res.status) {
