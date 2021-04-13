@@ -21,9 +21,9 @@ jobs:
       - run: npm i -g nexe
       - run: npm i
       - run: mkdir build/
-      - run: nexe -t linux-x64-12.16.2 cli.js --resource "./dist/*" -o build/yeeturl-linux
-      - run: nexe -t windows-x86-12.18.2 cli.js --resource "./dist/*" -o build/yeeturl-windows
-      - run: nexe -t mac-x64-12.18.2 cli.js --resource "./dist/*" -o build/yeeturl-mac
+      - run: nexe -t linux-x64-12.16.2 cli.js -o build/yeeturl-linux
+      - run: nexe -t windows-x86-12.18.2 cli.js -o build/yeeturl-windows
+      - run: nexe -t mac-x64-12.18.2 cli.js -o build/yeeturl-mac
 
       - uses: edgarrc/action-7z@v1.0.4
         with:
