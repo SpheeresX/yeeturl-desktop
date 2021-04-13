@@ -1,0 +1,39 @@
+name: Build CLI app
+
+# Controls when the action will run.
+on:
+  push:
+    branches: ["master"]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # Job name
+  build:
+    # Runner name
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm i -g nexe
+      - run: npm i
+      - run: mkdir build/
+      - run: nexe -t linux-x64-12.16.2 cli.js --resource "./dist/*" -o build/yeeturl-linux
+      - run: nexe -t windows-x86-12.18.2 cli.js --resource "./dist/*" -o build/yeeturl-windows
+      - run: nexe -t mac-x64-12.18.2 cli.js --resource "./dist/*" -o build/yeeturl-mac
+
+      - uses: edgarrc/action-7z@v1.0.4
+        with:
+          args: 7z a -t7z -mx=9 build.7z ./build/            
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          title: "yeeturl-desktop"
+          files: |
+            build.7z
