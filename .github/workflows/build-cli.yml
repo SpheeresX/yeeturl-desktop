@@ -22,12 +22,15 @@ jobs:
       - run: npm i
       - run: mkdir build/
       - run: nexe -t linux-x64-12.16.2 cli.js -o build/yeeturl-linux
-      - run: nexe -t windows-x86-12.18.2 cli.js -o build/yeeturl-windows
+      - run: nexe -t windows-x86-12.18.2 cli.js -o build/yeeturl-windows.exe
       - run: nexe -t mac-x64-12.18.2 cli.js -o build/yeeturl-mac
 
       - uses: edgarrc/action-7z@v1.0.4
         with:
-          args: 7z a -t7z -mx=9 build.7z ./build/            
+          args: 7z a -t7z -mx=9 build-all.7z ./build/            
+      - run: zip -9 yeeturl-windows.zip build/yeeturl-windows.exe
+      - run: zip -9 yeeturl-mac.zip build/yeeturl-mac
+      - run: tar -cJf yeeturl-linux.tar.xz build/yeeturl-linux
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -36,4 +39,7 @@ jobs:
           prerelease: false
           title: "yeeturl-desktop"
           files: |
-            build.7z
+            build-all.7z
+            yeeturl-windows.zip
+            yeeturl-mac.zip
+            yeeturl-linux.tar.xz
