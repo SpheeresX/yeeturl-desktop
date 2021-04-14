@@ -11,6 +11,7 @@ function validateURL(value) {
 }
 
 // if you're self-hosting yeeturl, change this configuration
+// (or just tell your users to use the --instance option)
 const config = {
 	// the instance yeeturl-desktop will use to shorten/get urls
 	instanceURL: 'https://yeeturl.spheeresx.repl.co', // DON'T add a slash at the end of the url!
@@ -24,8 +25,11 @@ program
 	.version('1.0.1')
 	.option('-s, --shorten <url>', 'shorten a url')
 	.option('-g, --get <url>', 'get the long url from a shortened link')
+	.option('-i, --instance <url>', 'use a different yeeturl instance')
 	.parse();
 var opts = program.opts();
+
+if (opts.instance) delete config.sinstance;
 
 if (opts.shorten) {
 	(async () => {
@@ -37,7 +41,7 @@ if (opts.shorten) {
 		var password = crypto.randomBytes(5).toString('hex');
 		var encrypted = sjcl.encrypt(password, opts.shorten, { iter: 275000 });
 		// upload the encrypted url to the server
-		const res = await fetch(`${config.instanceURL}/api/v1/shorten`, {
+		const res = await fetch(`${opts.instance || config.instanceURL}/api/v1/shorten`, {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -59,7 +63,7 @@ if (opts.shorten) {
 			}
 		}
 		var data = await res.json();
-		var shortenedURL = `${config.sinstance || config.instanceURL}/#${data.link}/${password}`;
+		var shortenedURL = `${opts.instance || config.sinstance || config.instanceURL}/#${data.link}/${password}`;
 		console.log(chalk.green.bold('Done! ') + chalk.green(shortenedURL));
 	})();
 } else if (opts.get) {
@@ -67,17 +71,19 @@ if (opts.shorten) {
 		// check if the url is valid
 		if (!validateURL(opts.get))
 			return console.error(chalk.red('This URL is invalid.'));
-		// parse the url & make sure this instance is supported
-		var parsed = new URL(opts.get);
-		if (!config.supportedInstances.includes(parsed.hostname.toLowerCase()))
-			return console.error(chalk.red('This instance is unsupported.'));
+		if (!opts.instance) {
+			// parse the url & make sure this instance is supported
+			var parsed = new URL(opts.get);
+			if (!config.supportedInstances.includes(parsed.hostname.toLowerCase()))
+				return console.error(chalk.red('This instance is unsupported.'));
+		}
 		// get the id & password from the url
 		// code[0] is the id of the short link,
 		// and code[1] is the password we're decrypting the url with
 		const code = parsed.hash.replace("#", "").split("/");
 		// get the encrypted url from the server
 		console.log(chalk.magentaBright('Getting the encrypted url...'));
-		const url = `${config.instanceURL}/api/v1/getlink?id=${encodeURIComponent(code[0])}`;
+		const url = `${opts.instance || config.instanceURL}/api/v1/getlink?id=${encodeURIComponent(code[0])}`;
 		const res = await fetch(url);
 		if (!res.ok) {
 			switch (res.status) {
