@@ -1,4 +1,21 @@
 {
+  "name": "yeeturl-desktop",
+  "version": "1.0.0",
+  "description": "CLI tool for yeeturl",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpheeresX/yeeturl-desktop.git"
+  },
+  "author": "",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/SpheeresX/yeeturl-desktop/issues"
+  },
+  "homepage": "https://github.com/SpheeresX/yeeturl-desktop#readme",
   "dependencies": {
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
