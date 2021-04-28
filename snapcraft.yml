@@ -1,0 +1,22 @@
+name: yeeturl-desktop
+version: git
+summary: CLI tool for yeeturl, an E2E encrypted URL shortener
+description: |
+  Shorten an URL:-
+    $ yeeturl-desktop -s https://www.example.com/
+  Use a custom yeeturl instance (beta):
+    $ yeeturl-desktop -s https://www.example.com/ -i https://yeeturl.example.com/
+  Get the original/long URL:
+    $ yeeturl-desktop -g https://yeeturl.glitch.me/#a9f/hdf
+
+base: core18
+confinement: strict
+
+parts:
+  test-wethr:
+    plugin: nodejs
+    source: .
+
+apps:
+  yeeturl-desktop:
+    command: yeeturl-desktop
